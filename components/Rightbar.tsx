@@ -1,6 +1,6 @@
 export default function Rightbar() {
    return (
-      <div className="flex flex-col gap-4 w-[325px]">
+      <div className="flex flex-col gap-4 w-full">
          <section className="flex flex-col bg-gradient-to-b to-[#242636] from-[#151c2c] text-left p-6 gap-4 rounded-lg">
             <h1>Available Now</h1>
             <h1 className="text-lg font-bold">
