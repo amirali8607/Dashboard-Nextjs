@@ -11,20 +11,21 @@ export default function UsersPage() {
             <input type="text" placeholder="Search..." className="bg-[#41445e] rounded p-1 text-sm" />
             <button className="bg-purple-600 p-1 rounded-md font-semibold">Add New</button>
          </main>
-         <table className="w-[710px]">
+         <table>
             <thead>
                <tr>
                   <td className="font-semibold">Name</td>
                   <td className="font-semibold">Email</td>
                   <td className="font-semibold">Created At</td>
                   <td className="font-semibold">Role</td>
+                  <td className="font-semibold">Status</td>
                   <td className="font-semibold">Action</td>
                </tr>
             </thead>
             <tbody>
                <tr>
                   <td>
-                     <div className="flex gap-2 items-center p-1">
+                     <div className="flex gap-2 items-center p-2">
                         <Image alt="" className="h-12 w-12 rounded-full" src={img2} />
                         <h1>Amirali Abdelahi</h1>
                      </div>
@@ -42,7 +43,7 @@ export default function UsersPage() {
                </tr>
                <tr>
                   <td>
-                     <div className="flex gap-2 items-center p-1">
+                     <div className="flex gap-2 items-center p-2">
                         <Image alt="" className="h-12 w-12 rounded-full" src={img1} />
                         <h1>Mohsen Tahmasebi</h1>
                      </div>
@@ -60,7 +61,7 @@ export default function UsersPage() {
                </tr>
                <tr>
                   <td>
-                     <div className="flex gap-2 items-center p-1">
+                     <div className="flex gap-2 items-center p-2">
                         <Image alt="" className="h-12 w-12 rounded-full" src={img3} />
                         <h1>Hossein Darabi</h1>
                      </div>
