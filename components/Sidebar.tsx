@@ -24,7 +24,7 @@ export default function Sidebar() {
                   <path d="M11.085 10.354c.03.297.038.575.036.805a7.484 7.484 0 0 1-.805-.036c-.833-.084-1.677-.325-2.195-.843a1.5 1.5 0 0 1 2.122-2.12c.517.517.759 1.36.842 2.194ZM12.877 10.354c-.03.297-.038.575-.036.805.23.002.508-.006.805-.036.833-.084 1.677-.325 2.195-.843A1.5 1.5 0 0 0 13.72 8.16c-.518.518-.76 1.362-.843 2.194Z" />
                </svg>
 
-               <Link href="/" className="text-sm">
+               <Link href="/dashboard" className="text-sm">
                   Dashboard
                </Link>
             </main>
@@ -42,7 +42,7 @@ export default function Sidebar() {
                   />
                </svg>
 
-               <Link href="/users" className="text-sm">
+               <Link href="/dashboard/users" className="text-sm">
                   Users
                </Link>
             </main>
@@ -60,7 +60,7 @@ export default function Sidebar() {
                   />
                </svg>
 
-               <Link href="/products" className="text-sm">
+               <Link href="/dashboard/products" className="text-sm">
                   Products
                </Link>
             </main>
@@ -79,7 +79,7 @@ export default function Sidebar() {
                   />
                </svg>
 
-               <Link href="/transactions" className="text-sm">
+               <Link href="/dashboard/transactions" className="text-sm">
                   Transactions
                </Link>
             </main>

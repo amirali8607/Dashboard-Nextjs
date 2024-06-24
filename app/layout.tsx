@@ -17,16 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#0f121b] flex gap-2 text-white">
-        <Sidebar />
+        {/* <Sidebar />
         <div className="w-full flex flex-col gap-4 p-3">
           <Navbar />
-          {/*Change the display to Grid*/}
-          <section className="grid grid-cols-[69%,29%] gap-4 w-full">
-            {children}
-            <Rightbar />
-          </section>
-        </div>
+        <section className="grid grid-cols-[69%,29%] gap-4 w-full">
+        <Rightbar />
+        </section>
+        </div>*/}
+        {children}
       </body>
-    </html>
+    </html >
   );
 }

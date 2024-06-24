@@ -4,12 +4,13 @@ import img2 from '@/public/6327211.png';
 import img3 from '@/public/7dfaf3e79c134e912048d0f2693a2525.jpg';
 import img4 from '@/public/Untitled.png';
 import img5 from '@/public/images.png';
+import Link from "next/link";
 export default function UsersPage() {
    return (
       <div className="w-full flex flex-col gap-6 bg-[#151c2c] p-4 rounded-lg">
          <main className="flex justify-between">
             <input type="text" placeholder="Search..." className="bg-[#41445e] rounded p-1 text-sm" />
-            <button className="bg-purple-600 p-1 rounded-md font-semibold">Add New</button>
+            <Link href="/dashboard/users/addUser" className="bg-purple-600 p-1 rounded-md font-semibold">Add New</Link>
          </main>
          <table>
             <thead>
@@ -36,7 +37,7 @@ export default function UsersPage() {
                   <td>active</td>
                   <td>
                      <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
+                        <Link href="/dashboard/users/test" className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</Link>
                         <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
                      </div>
                   </td>
@@ -54,7 +55,7 @@ export default function UsersPage() {
                   <td>active</td>
                   <td>
                      <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
+                        <Link href="/dashboard/users/test" className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</Link>
                         <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
                      </div>
                   </td>
@@ -72,7 +73,7 @@ export default function UsersPage() {
                   <td>passive</td>
                   <td>
                      <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
+                        <Link href="/dashboard/users/test" className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</Link>
                         <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
                      </div>
                   </td>

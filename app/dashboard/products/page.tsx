@@ -2,12 +2,13 @@ import img1 from '@/public/1693299186760.jpg';
 import img2 from '@/public/6327211.png';
 import img3 from '@/public/7dfaf3e79c134e912048d0f2693a2525.jpg';
 import Image from "next/image";
+import Link from 'next/link';
 export default function ProductsPage() {
    return (
       <div className="w-full flex flex-col gap-6 bg-[#151c2c] p-4 rounded-lg">
          <main className="flex justify-between">
             <input type="text" placeholder="Search..." className="bg-[#41445e] rounded p-1 text-sm" />
-            <button className="bg-purple-600 p-1 rounded-md font-semibold">Add New</button>
+            <Link href="/dashboard/products/addProduct" className="bg-purple-600 p-1 rounded-md font-semibold">Add New</Link>
          </main>
          <table className="w-[710px]">
             <thead>
