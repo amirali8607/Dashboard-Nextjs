@@ -1,12 +1,10 @@
-import img1 from '@/public/1693299186760.jpg';
-import img2 from '@/public/6327211.png';
-import img3 from '@/public/7dfaf3e79c134e912048d0f2693a2525.jpg';
-import img4 from '@/public/Untitled.png';
-import img5 from '@/public/images.png';
+import prisma from '@/app/config/db';
 import Image from "next/image";
 
 
-export default function LatestTransactions() {
+export default async function LatestTransactions() {
+   const users = await prisma.users.findMany()
+   console.log(users)
    return (
       <div className="flex flex-col gap-4 p-4 bg-[#151c2c] rounded-lg">
          <h1 className="text-2xl opacity-60">Latest Transactions</h1>
@@ -16,76 +14,27 @@ export default function LatestTransactions() {
                   <td>Name</td>
                   <td>Status</td>
                   <td>Date</td>
-                  <td>Amount</td>
+                  <td>Phone Number</td>
                </tr>
             </thead>
             <tbody>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img2} />
-                        <h1>Mohsen Tahmasebi</h1>
-                     </div>
-                  </td>
-                  <td>
-                     <button className="bg-yellow-600 rounded p-1">Pending</button>
-                  </td>
-                  <td>2024.12.11</td>
-                  <td>$3,000</td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img1} />
-                        <h1 className="font-semibold">Amirali Abdelahi</h1>
-                     </div>
-                  </td>
-                  <td>
-                     <button className="bg-neutral-600 rounded p-1">Done</button>
-
-                  </td>
-                  <td>2024.12.11</td>
-                  <td>$3,000</td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img3} />
-                        <h1>Mahdi Dawatgar</h1>
-                     </div>
-                  </td>
-                  <td>
-                     <button className="bg-red-600 rounded p-1">canceled</button>
-                  </td>
-                  <td>2024.12.11</td>
-                  <td>$3,000</td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img4} />
-                        <h1>Hossein Darabi</h1>
-                     </div>
-                  </td>
-                  <td>
-                     <button className="bg-neutral-600 rounded p-1">Done</button>
-                  </td>
-                  <td>2024.12.11</td>
-                  <td>$3,000</td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img5} />
-                        <h1>Adel Ghadiri</h1>
-                     </div>
-                  </td>
-                  <td>
-                     <button className="bg-yellow-600 rounded p-1">Pending</button>
-                  </td>
-                  <td>2024.12.11</td>
-                  <td>$3,000</td>
-               </tr>
+               {
+                  users.map((item) => (
+                     <tr>
+                        <td>
+                           <div className="flex gap-2 items-center p-2">
+                              <Image alt="" width={100} height={100} className="h-12 w-12 rounded-full" src={item.img!} />
+                              <h1 className='text-lg font-semibold'>{item.username}</h1>
+                           </div>
+                        </td>
+                        <td>
+                           <button style={{ backgroundColor: item.color!, color: 'black' }} className="rounded p-1">{item.status}</button>
+                        </td>
+                        <td>{item.createdAt}</td>
+                        <td>{item.phonenumber}</td>
+                     </tr>
+                  ))
+               }
             </tbody>
          </table >
       </div>

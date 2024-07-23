@@ -1,82 +1,74 @@
-import img1 from '@/public/1693299186760.jpg';
-import img2 from '@/public/6327211.png';
-import img3 from '@/public/7dfaf3e79c134e912048d0f2693a2525.jpg';
-import Image from "next/image";
+import prisma from '@/app/config/db';
+import { auth } from '@/auth';
+import { DeleteProdButton } from '@/components/Buttons';
+import Search from '@/components/Serach';
+import { UserRole } from '@prisma/client';
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import Image from 'next/image';
 import Link from 'next/link';
-export default function ProductsPage() {
+export default async function ProductsPage({ searchParams }: { searchParams: Params }) {
+   const query = searchParams?.q
+   const products = await prisma.products.findMany({
+      where: {
+         title: {
+            contains: query
+         }
+      }
+      ,
+      include: {
+         user: true
+      }
+   })
+   const session = await auth()
    return (
       <div className="w-full flex flex-col gap-6 bg-[#151c2c] p-4 rounded-lg">
          <main className="flex justify-between">
-            <input type="text" placeholder="Search..." className="bg-[#41445e] rounded p-1 text-sm" />
+            <Search />
             <Link href="/dashboard/products/addProduct" className="bg-purple-600 p-1 rounded-md font-semibold">Add New</Link>
          </main>
-         <table className="w-[710px]">
-            <thead>
+         <table>
+            <thead >
                <tr>
-                  <td className="font-semibold">Title</td>
-                  <td className="font-semibold">Description</td>
-                  <td className="font-semibold">Price</td>
-                  <td className="font-semibold">Created At</td>
-                  <td className="font-semibold">Stock</td>
-                  <td className="font-semibold">Action</td>
+                  <td className="font-semibold text-lg">Title</td>
+                  <td className="font-semibold text-lg text-center">Price</td>
+                  <td className="font-semibold text-lg text-center">Description</td>
+                  <td className="font-semibold text-lg text-center">Stock</td>
+                  <td className="font-semibold text-lg text-center">Action</td>
                </tr>
             </thead>
-            <tbody>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img3} />
-                        <h1>Iphone 15 pro</h1>
-                     </div>
-                  </td>
-                  <td className="text-xs">Lorem, ipsum dolor sit amet consectet</td>
-                  <td>$234</td>
-                  <td>Oct 23 2023</td>
-                  <td>24</td>
-                  <td>
-                     <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
-                        <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
-                     </div>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img1} />
-                        <h1>Ig Monitor H-12</h1>
-                     </div>
-                  </td>
-                  <td className="text-xs">Lorem, ipsum dolor sit amet consectet</td>
-                  <td>$2900</td>
-                  <td>Oct 23 2023</td>
-                  <td>33</td>
-                  <td>
-                     <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
-                        <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
-                     </div>
-                  </td>
-               </tr>
-               <tr>
-                  <td>
-                     <div className="flex gap-2 items-center p-2">
-                        <Image alt="" className="h-12 w-12 rounded-full" src={img2} />
-                        <h1>Xiaomi 11T</h1>
-                     </div>
-                  </td>
-                  <td className="text-xs">Lorem, ipsum dolor sit amet consectet</td>
-                  <td>$300</td>
-                  <td>Oct 23 2023</td>
-                  <td>87</td>
-                  <td>
-                     <div className="flex gap-1">
-                        <button className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</button>
-                        <button className="rounded-md font-semibold bg-red-600 cursor-pointer p-1">Delete</button>
-                     </div>
-                  </td>
-               </tr>
-
+            <tbody className='text-center'>
+               {
+                  products.map((item) => (
+                     <tr>
+                        <td>
+                           <div className="flex gap-2 items-center p-2">
+                              <Image alt="" width={100} height={100} className="h-12 w-12 rounded-full" src={item.img!} />
+                              <h1>{item.title}</h1>
+                           </div>
+                        </td>
+                        <td className='font-bold'>{item.price}</td>
+                        <td className="text-sm font-light">{item.description}</td>
+                        <td className='font-bold'>{item.stock}</td>
+                        <td>
+                           {
+                              session?.user.role === UserRole.user ?
+                                 (item.user.id == session?.user.id ?
+                                    <div className="flex gap-1">
+                                       <Link href={{ pathname: `/dashboard/products/${item.id}`, query: { description: item.description, price: item.price } }} className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</Link>
+                                       <DeleteProdButton id={item.id} />
+                                    </div>
+                                    :
+                                    <p className='text-xs'>You're not owner</p>)
+                                 :
+                                 <div className="flex gap-1">
+                                    <Link href={{ pathname: `/dashboard/products/${item.id}`, query: { description: item.description, price: item.price } }} className="rounded-md font-semibold bg-green-600 cursor-pointer p-1">View</Link>
+                                    <DeleteProdButton id={item.id} />
+                                 </div>
+                           }
+                        </td>
+                     </tr>
+                  ))
+               }
             </tbody>
          </table>
       </div>

@@ -3,6 +3,7 @@ import Rightbar from "@/components/Rightbar";
 import Sidebar from "@/components/Sidebar";
 import type { Metadata } from "next";
 import "./globals.css";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,15 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="bg-[#0f121b] flex gap-2 text-white">
-        {/* <Sidebar />
-        <div className="w-full flex flex-col gap-4 p-3">
-          <Navbar />
-        <section className="grid grid-cols-[69%,29%] gap-4 w-full">
-        <Rightbar />
-        </section>
-        </div>*/}
+      <body className="font-poppins bg-[#0f121b] text-white">
         {children}
+        <Toaster />
       </body>
     </html >
   );

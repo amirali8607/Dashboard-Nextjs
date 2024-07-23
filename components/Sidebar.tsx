@@ -1,14 +1,23 @@
+"use server"
+import prisma from "@/app/config/db";
+import { auth } from "@/auth";
 import Image from "next/image";
 import Link from "next/link";
-import profileimage from "@/public/shaboon.jpg";
-export default function Sidebar() {
+import { LogoutButton } from "./Logout";
+export default async function Sidebar() {
+   const session = await auth()
+   const findProfile = await prisma.users.findFirst({
+      where: {
+         id: session?.user.id
+      }
+   })
    return (
-      <div className="flex flex-col bg-[#151c2c] w-[265px] px-4 py-3 gap-2">
+      <div className="flex flex-col bg-[#151c2c] w-[250px] px-4 py-3 gap-2">
          <section id="profile" className="flex gap-4 items-center">
-            <Image src={profileimage} alt="" className="rounded-full w-12 h-12" />
+            <Image src={findProfile?.img!} width={100} height={100} alt="" className="rounded-full w-12 h-12" />
             <main className="flex flex-col">
-               <p>Shaboon</p>
-               <p className="opacity-60 text-xs">admin</p>
+               <p>{findProfile?.username}</p>
+               <p className="opacity-60 text-xs">{findProfile?.isAdmin}</p>
             </main>
          </section>
          <section className="flex flex-col gap-0">
@@ -183,10 +192,7 @@ export default function Sidebar() {
                      clipRule="evenodd"
                   />
                </svg>
-
-               <Link href="#" className="text-sm">
-                  Logout
-               </Link>
+               <LogoutButton />
             </main>
          </section>
       </div>
